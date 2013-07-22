@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>roto Test</title>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script type="text/javascript" src="jquery.roto.min.js"></script>
+
+	<style>
+
+		#timeline
+		{
+			position   : absolute;
+			top        : .5em;
+			left       : 0;
+			right      : 0;
+			width      : 98%;
+			background : white;
+			border     : black solid 1px;
+			margin     : auto;
+			padding    : .2em 0;
+			overflow   : hidden;
+		}
+
+	</style>
+
+</head>
+
+
+<body>
+
+	<div id="timeline">
+
+		<div id="rotoDiv">
+
+			<div id="content" class="rotoFrame"></div>
+
+		</div>
+
+	</div>
+
+
+
+<script>
+
+$(window).load( function()
+{
+	var container = $( '<div id="TimelineSliderContent" class="rotoFrame"></div>' );
+
+	$( '#content' ).append( container );
+
+
+	var minPerDay = 1439;
+
+	for( var i = 0; i <= minPerDay; i += 30 )
+	{
+		container.append( '<span>' + minToTime( i ) + '</span>');
+	}
+
+	// apply styles
+	//
+	container.find( 'span' ).css(
+	{
+			margin     : "0 .3em"
+		,  fontFamily : "monospace"
+		,  fontSize   : "1.4em"
+
+	});
+
+
+	container.css(
+	{
+			cursor   : "pointer"
+		,  wordWrap : "none"
+
+	});
+
+
+	$( '#content' ).roto();
+
+
+	function minToTime( min )
+	{
+		var hours = Math.floor( min / 60 );
+		var minutes = min % 60;
+
+		return pad( hours, 2 ) + ':' + pad(  minutes, 2 );
+	}
+
+
+	function pad( n, width, z )
+	{
+		z = z || '0';
+		n = n + '';
+
+		return n.length >= width ? n : new Array( width - n.length + 1 ).join( z ) + n;
+	}
+});
+
+
+
+
+
+
+</script>
+</body>
+
+</html>
